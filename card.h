@@ -14,28 +14,26 @@ public:
 
     int id() const;
 
-    void setIsTurned(bool isTurned);
+    void setIsShowed(bool isShowed);
+    bool isShowed() const;
 
     void collect();
     bool isCollected() const;
 
-    bool isSame() const;
-
 signals:
-    void isTurnedChanged();
+    void turn();
 
 private:
     int _id;
-    bool _isTurned;
+    bool _isShowed;
     bool _isCollected;
-    bool _isSame;
 
-    void setupUiTurned();
+    void setupUiShowed();
     void setupUi();
     void setupUiCollected();
 
 private slots:
-    void changeView();
+    void onTurned();
 };
 
 #endif //MEMORYGAME_CARD_H

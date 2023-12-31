@@ -3,9 +3,8 @@
 Card::Card(int id, QWidget *parent) :
         QToolButton(parent),
         _id(id),
-        _isTurned(false),
-        _isCollected(false),
-        _isSame(false)
+        _isShowed(false),
+        _isCollected(false)
 {
     setFixedSize(100, 100);
     setAutoExclusive(false);
@@ -13,7 +12,7 @@ Card::Card(int id, QWidget *parent) :
 
     setupUi();
 
-    connect(this, &Card::isTurnedChanged, this, &Card::changeView);
+    connect(this, &Card::turn, this, &Card::onTurned);
 }
 
 void Card::setupUi()
@@ -22,7 +21,7 @@ void Card::setupUi()
     setStyleSheet("background-color: green;");
 }
 
-void Card::setupUiTurned()
+void Card::setupUiShowed()
 {
     setText(QString::number(_id));
     setStyleSheet("background-color: red; "
@@ -44,23 +43,26 @@ int Card::id() const
     return _id;
 }
 
-void Card::setIsTurned(bool isTurned)
+void Card::setIsShowed(bool isShowed)
 {
-    _isTurned = isTurned;
-    emit isTurnedChanged();
+    _isShowed = isShowed;
+    emit turn();
 }
 
-void Card::changeView()
+bool Card::isShowed() const
 {
-    if(_isTurned)
+    return _isShowed;
+}
+
+void Card::onTurned()
+{
+    if(_isShowed)
     {
-        setupUiTurned();
-        _isSame = true;
+        setupUiShowed();
     }
     else
     {
         setupUi();
-        _isSame = false;
     }
 }
 
@@ -73,9 +75,4 @@ void Card::collect()
 bool Card::isCollected() const
 {
     return _isCollected;
-}
-
-bool Card::isSame() const
-{
-    return _isSame;
 }

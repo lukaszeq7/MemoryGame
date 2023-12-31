@@ -40,11 +40,11 @@ private:
     Card* clickedCard();
 
     void compareCards();
-    bool sameCards();
+    bool isSameCards();
 
     void collectCards();
     void hideCards();
-    void showCards();
+    void showCard();
 };
 
 #endif //MEMORYGAME_MAINWINDOW_H

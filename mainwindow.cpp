@@ -23,8 +23,8 @@ void MainWindow::initCards()
         Card* card1 = new Card(i, this);
         Card* card2 = new Card(i, this);
 
-        card1->setIsTurned(false);
-        card2->setIsTurned(false);
+        card1->setIsShowed(false);
+        card2->setIsShowed(false);
 
         connect(card1, &Card::clicked, this, &MainWindow::onCardClicked);
         connect(card2, &Card::clicked, this, &MainWindow::onCardClicked);
@@ -81,16 +81,16 @@ void MainWindow::onCardClicked()
 
         if(!_isSecondCardShowed)
         {
-            showCards();
+            showCard();
             _card1 = _selectedCard;
 
             _isSecondCardShowed = true;
             return;
         }
 
-        if(_isSecondCardShowed && !_selectedCard->isSame())
+        if(_isSecondCardShowed && !_selectedCard->isShowed())
         {
-            showCards();
+            showCard();
             _card2 = _selectedCard;
 
             _bothCardsShowed = true;
@@ -113,7 +113,7 @@ void MainWindow::compareCards()
 {
     if (_bothCardsShowed)
     {
-        if (sameCards())
+        if (isSameCards())
         {
             collectCards();
         }
@@ -125,20 +125,20 @@ void MainWindow::compareCards()
     }
 }
 
-bool MainWindow::sameCards()
+bool MainWindow::isSameCards()
 {
     return _card1->id() == _card2->id();
 }
 
 void MainWindow::hideCards()
 {
-    _card1->setIsTurned(false);
-    _card2->setIsTurned(false);
+    _card1->setIsShowed(false);
+    _card2->setIsShowed(false);
 }
 
-void MainWindow::showCards()
+void MainWindow::showCard()
 {
-    _selectedCard->setIsTurned(true);
+    _selectedCard->setIsShowed(true);
 }
 
 void MainWindow::collectCards()
